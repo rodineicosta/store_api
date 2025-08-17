@@ -1,8 +1,9 @@
 from typing import List
 
 import pytest
-from tests.factories import product_data
 from fastapi import status
+
+from tests.factories import product_data
 
 
 async def test_controller_create_should_return_success(client, products_url):
@@ -100,3 +101,19 @@ async def test_controller_delete_should_return_not_found(client, products_url):
     assert response.json() == {
         "detail": "Product not found with filter: 4fd7cd35-a3a0-4c1f-a78d-d24aa81e7dca"
     }
+
+
+async def test_controller_create_should_return_insertion_error(client, products_url):
+    from unittest.mock import patch
+
+    from store.core.exceptions import InsertionException
+
+    with patch("store.usecases.product.ProductUsecase.create") as mock_create:
+        mock_create.side_effect = InsertionException(
+            "Simulated database insertion error"
+        )
+
+        response = await client.post(products_url, json=product_data())
+
+        assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+        assert response.json() == {"detail": "Simulated database insertion error"}
