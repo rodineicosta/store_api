@@ -1,3 +1,25 @@
+# Criando uma API com FastAPI utilizando TDD
+
+## Descrição do Projeto
+
+Este projeto é parte do desafio **Criando uma API com FastAPI utilizando TDD**, da **Formação Santander 2025 - Back-End com Python**.
+
+Nessa versão foram implementadas as seguintes tarefas:
+
+- Tratamento de Erros de Inserção, utilizando `InsertionException` para capturar erros de inserção no banco de dados;
+- Alteração do método `patch` para verificar se o produto existe antes de atualizar;
+- Implementação da exceção `NotFoundException` no controller do PATCH retornando *HTTP 404*;
+- Atualização automática do campo `updated_at`;
+- Criação de produtos com preços diferentes na *factory* para testes;
+- Implementação de filtros de preço no *usecase* com parâmetros `min_price` e `max_price`;
+- Aplicação de filtro de valores entre 5000 e 8000, convertendo corretamente para `Decimal128`;
+- Criação de testes abrangentes validando todos os cenários;
+- Configuração de *UUID representation* para MongoDB;
+- Correção de `datetime.utcnow` obsoleto para `datetime.now(timexone.utc)`;
+- Tratamento adequado de tipos `Decimal/Decimal128` para operações com MongoDB.
+
+---
+
 # TDD Project
 
 ## O que é TDD?
